@@ -1,11 +1,11 @@
+About
+=====
 This repo contains some example saltstack states, which can be used
 to install Apache2, Munin, Graphite and Grafana on Ubuntu 14.04, and
 to push the results from munin plugins to graphite, by using the saltstack
 scheduler with the carbon returner.
 
-About
-=====
-Used to bootstrap a course at Fulda University.
+Used to bootstrap a network management course at Fulda University.
 
 
 License
