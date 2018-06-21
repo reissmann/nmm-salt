@@ -12,6 +12,7 @@ graphite:
     - name: /var/lib/graphite/graphite.db
     - user: _graphite
     - group: _graphite
+    - replace: False
 
 
 graphite-web:
@@ -54,7 +55,7 @@ graphite.carbon:
 # We need wsgi to run graphite-web
 #
 graphite.apache.modules:
-  apache_module.enable:
+  apache_module.enabled:
     - name: wsgi
     - require:
       - pkg: graphite
