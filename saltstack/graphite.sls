@@ -1,17 +1,8 @@
 graphite:
-  # Just to be sure, we need packages from universe
-  # 
-#  pkgrepo.managed:
-#    - humanname: Ubuntu
-#    - name: deb http://archive.ubuntu.com/ubuntu trusty main universe
-#    - dist: trusty
-#    - file: /etc/apt/sources.list.d/trusty_univers.list
-
   # Install graphite
   # 
   pkg.installed:
     - pkgs:
-      - graphite-web 
       - graphite-carbon
       - libapache2-mod-wsgi
 
@@ -29,6 +20,24 @@ graphite:
     - user: _graphite
     - group: _graphite
 
+
+graphite-web:
+  {% if graind.os == 'Debian' %}
+  # Install graphite-web from debian jessie repo
+  # 
+  pkgrepo.managed:
+    - humanname: Jessie
+    - name: deb http://httpredir.debian.org/debian jessie main 
+    - dist: jessie
+    - file: /etc/apt/sources.list.d/jessie.list
+
+  pkg.installed:
+    - name: graphite-web 
+    - fromrepo: jessie
+  {% else %}
+  pkg.installed:
+    - name: graphite-web
+  {% endif %}
 
 # Enable carbon
 graphite.carbon:
