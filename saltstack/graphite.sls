@@ -6,13 +6,6 @@ graphite:
       - graphite-carbon
       - libapache2-mod-wsgi
 
-  # Configure graphites internal userdatabase
-  # 
-  cmd.run:
-    - name: graphite-manage syncdb --noinput
-    - cwd: /
-    - creates: /var/lib/graphite/graphite.db
-
   # Set correct access rights for graphite db
   # 
   file.managed:
@@ -22,7 +15,7 @@ graphite:
 
 
 graphite-web:
-  {% if graind.os == 'Debian' %}
+  {% if grains.os == 'Debian' %}
   # Install graphite-web from debian jessie repo
   # 
   pkgrepo.managed:
@@ -38,6 +31,14 @@ graphite-web:
   pkg.installed:
     - name: graphite-web
   {% endif %}
+
+  # Configure graphites internal userdatabase
+  # 
+  cmd.run:
+    - name: graphite-manage syncdb --noinput
+    - cwd: /
+    - creates: /var/lib/graphite/graphite.db
+
 
 # Enable carbon
 graphite.carbon:
